@@ -1,14 +1,48 @@
-<head>
-  <title>beehive</title>
-</head>
+<template name="layout">
+	<div class="container">
+		<h1>Beehive Data Entry</h1>
+	
+		{{> yield}}
+	</div>
+</template>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-</body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="mite-form">
+	<div class="row">
+		<div class="col-xs-6">
+			<form>
+				<!-- Hive Name -->
+				<div class="form-group">
+					<label for="hiveName">Hive Name:</label>
+					<input type="text" class="form-control" name="hiveName"
+								 placeholder="Hive Name" />
+				</div>
+				
+				<!-- Observation Date -->
+				<div class="form-group">
+					<label for="observationDate">Observation Date:</label>
+					<input type="date" class="form-control" name="observationDate"
+								 placeholder="yyyy-mm-dd" />
+				</div>
+				
+				<!-- Observation Duration -->
+				<div class="form-group">
+					<label for="observationDuration">Observation Duration (Days):</label>
+					<input type="number" min="0" class="form-control"
+								 name="observationDuration" placeholder="Number of Days" />
+				</div>
+				
+				<!-- Mite Count -->
+				<div class="form-group">
+					<label for="miteCount">Mite Count:</label>
+					<input type="number" min="0" class="form-control"
+								 name="miteCount" placeholder="Number of Mites" />
+				</div>
+				
+				<!-- Submit Button -->
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </template>

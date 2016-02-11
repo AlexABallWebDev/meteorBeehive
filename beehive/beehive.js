@@ -7,6 +7,25 @@ Router.route('/', function() {
 	this.layout('layout');
 });
 
+//the "admin page" for this site is the bee
+//data table.
+Router.route('/admin', function() {
+	this.render('beeDataTable');
+	this.layout('layout');
+});
+
+Router.route('/hives/:hiveName', function() {
+	this.render('beeSubTable', {
+		data: function() {
+			//the data being returned is an object containing the observations
+			//that will be printed. This set of observations all have the same
+			//name, which was typed into the url.
+			return {obsSubset: Observations.find({hiveName: this.params.hiveName}, {sort: {submissionDate: -1}})};
+		}
+	});
+	this.layout('layout');
+});
+
 if (Meteor.isClient) {
   //subscribe to get the Observations collection.
 	Meteor.subscribe("observations");
@@ -75,8 +94,15 @@ if (Meteor.isClient) {
 				observationDurationBox.val("");
 				miteCountBox.val("");
 				
+				//after the form is submitted, redirect the user to a page where
+				//they can see their hive data (based on the hiveName they
+				//entered into the form).
+				Router.go('/hives/' + hiveNameText);
+				
+				//no longer used:
 				//show beeDataTable below the form.
-				$('#beeDataTable').show();
+				//$('#beeDataTable').show();
+				
 			}
 		}
 	})
